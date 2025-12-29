@@ -89,3 +89,70 @@ Build and evaluate machine learning models to detect fraudulent transactions usi
 - Random Forest outperformed Logistic Regression in detecting rare fraud cases
 - Cross-validation confirmed model stability and generalization
 - Feature engineering from Task 1 significantly improved model performance
+
+
+# Task 3: Model Explainability & Interpretation (SHAP)
+
+## Objective
+Explain how the selected Random Forest model makes fraud detection decisions. Since fraud detection impacts real users and financial systems, model predictions must be transparent, interpretable, and trustworthy.
+
+##  Completed Steps:
+
+### 1. Model Loading
+- Loaded the trained Random Forest model from Task 2
+- Used consistent feature set for accurate explanations
+
+### 2. SHAP Explainer Initialization
+- Used TreeExplainer optimized for Random Forest
+- Computed SHAP values quantifying each feature's contribution
+
+### 3. Global Model Explainability
+- Generated SHAP summary plots showing:
+  - Feature importance rankings
+  - How high/low feature values influence fraud predictions
+  - Most influential fraud indicators across all transactions
+
+### 4. Local (Individual) Explainability
+- Created force/waterfall plots for specific transactions
+- Visualized why individual cases were flagged as fraud or legitimate
+- Showed how multiple features combine to affect fraud risk
+
+### 5. Feature Impact Analysis
+- Analyzed direction of feature effects (positive vs negative contributions)
+- Compared SHAP insights with Task 1 EDA findings
+
+##  Key Explainability Findings
+
+### Transaction Behavior Features
+- **Device sharing** is the #1 fraud indicator (`device_usage_count`: 0.0846 SHAP importance)
+- **IP sharing** also strongly increases fraud risk
+- Shared resources indicate potential fraud rings
+
+### Time-Based Patterns
+- **Short time since signup** significantly increases fraud probability
+- **Off-hours transactions** show higher risk
+- Time patterns align with typical fraudster behavior
+
+### Model Validation
+- SHAP explanations align perfectly with exploratory findings from Task 1
+- 9 out of 10 top features match between SHAP and built-in importance
+- Model learns logical, interpretable fraud patterns
+
+##  Why SHAP Matters in Fraud Detection
+- **Improves trust**: Stakeholders understand why transactions are flagged
+- **Enables compliance**: Meets explainability requirements in financial systems
+- **Supports debugging**: Identifies model weaknesses and improvement opportunities
+- **Facilitates auditing**: Provides clear documentation of decision logic
+
+##  Outputs Generated
+- `shap_summary_plot.png` - Global feature importance visualization
+- `shap_force_true_positive.png` - Correctly identified fraud case explanation
+- `shap_force_false_positive.png` - False alarm case explanation  
+- `shap_force_false_negative.png` - Missed fraud case explanation
+- `shap-explainability.ipynb` - Complete analysis notebook
+
+##  Key Takeaways
+- Random Forest is both accurate **and** interpretable for fraud detection
+- SHAP provides clear explanations at global and individual levels
+- Explainability results validate earlier data analysis and feature engineering
+- The model is suitable for real-world deployment where transparency is critical
